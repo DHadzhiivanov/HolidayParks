@@ -18,6 +18,9 @@ module nsgs 'modules/nsgs.bicep' = {
   name: 'deployNSGs'
   scope: resourceGroup('rg-fonteyn-network')
   dependsOn: [vnets]
+  params: {
+    location: location
+  }
 }
 
 module peerings 'modules/peerings.bicep' = {
