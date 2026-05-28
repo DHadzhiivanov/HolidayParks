@@ -22,12 +22,6 @@ resource hubVnet 'Microsoft.Network/virtualNetworks@2019-11-01' = {
           addressPrefix: '10.0.1.0/26'
         }
       }
-      {
-        name: 'snet-management'
-        properties: {
-          addressPrefix: '10.0.2.0/24'
-        }
-      }
     ]
   }
 }
@@ -38,7 +32,7 @@ resource spokeWorkloads 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.1.1.0/16'
+        '10.1.0.0/16'
       ]
     }
     subnets: [
@@ -96,20 +90,20 @@ resource spokeManagement 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.4.0.0/16'
+        '10.3.0.0/16'
       ]
     }
     subnets: [
       {
         name: 'snet-monitoring'
         properties: {
-          addressPrefix: '10.4.0.0/24'
+          addressPrefix: '10.3.0.0/24'
         }
       }
       {
         name: 'snet-backups'
         properties: {
-          addressPrefix: '10.4.1.0/24'
+          addressPrefix: '10.3.1.0/24'
         }
       }
     ]
@@ -122,14 +116,14 @@ resource spokeDev 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   properties: {
     addressSpace: {
       addressPrefixes: [
-        '10.5.0.0/16'
+        '10.4.0.0/16'
       ]
     }
     subnets: [
       {
         name: 'snet-test'
         properties: {
-          addressPrefix: '10.5.0.0/24'
+          addressPrefix: '10.4.0.0/24'
         }
       }
     ]
