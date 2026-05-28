@@ -1,31 +1,17 @@
 param location string
 
-resource nsgWorkloads 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
+resource nsgApp 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
   name: 'nsg-snet-app'
   location: location
   properties: {
     securityRules: [
       {
-        name: 'AllowInboundInternet'
+        name: 'AllowHTTPSInbound'
         properties: {
-          description: 'allow internet on port 443'
+          description: 'Allow internet traffic on port 443'
           protocol: 'Tcp'
-          sourcePortRange: '443'
+          sourcePortRange: '*'
           destinationPortRange: '443'
-          sourceAddressPrefix: '*'
-          destinationAddressPrefix: '*'
-          access: 'Allow'
-          priority: 100
-          direction: 'Inbound'
-        }
-      }
-      {
-        name: 'AllowDataFromAppInbound'
-        properties: {
-          description: 'allow app to talk to sql database'
-          protocol: 'Tcp'
-          sourcePortRange: '1433'
-          destinationPortRange: '1433'
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
           access: 'Allow'
@@ -37,22 +23,73 @@ resource nsgWorkloads 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
   }
 }
 
-resource nsgIoT 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
-  name: 'nsg-snet-'
+resource nsgData 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
+  name: 'nsg-snet-data'
   location: location
   properties: {
     securityRules: [
       {
-        name: 'nsg-snet-iot'
+        name: 'AllowSQLFromApp'
         properties: {
-          description: 'allow inbound sensor data from vpn gateway'
+          description: 'Allow app subnet to reach SQL on 1433'
           protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '1433'
+          sourceAddressPrefix: '10.1.0.0/24'
+          destinationAddressPrefix: '*'
+          access: 'Allow'
+          priority: 100
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'DenyAllInbound'
+        properties: {
+          description: 'Block everything else'
+          protocol: '*'
           sourcePortRange: '*'
           destinationPortRange: '*'
           sourceAddressPrefix: '*'
           destinationAddressPrefix: '*'
+          access: 'Deny'
+          priority: 200
+          direction: 'Inbound'
+        }
+      }
+    ]
+  }
+}
+
+resource nsgIoT 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
+  name: 'nsg-snet-iot'
+  location: location
+  properties: {
+    securityRules: [
+      {
+        name: 'AllowVPNInbound'
+        properties: {
+          description: 'Allow sensor data from parks over VPN'
+          protocol: 'Tcp'
+          sourcePortRange: '*'
+          destinationPortRange: '*'
+          sourceAddressPrefix: '10.0.0.0/27'
+          destinationAddressPrefix: '*'
           access: 'Allow'
           priority: 100
+          direction: 'Inbound'
+        }
+      }
+      {
+        name: 'DenyAllInbound'
+        properties: {
+          description: 'Block everything else'
+          protocol: '*'
+          sourcePortRange: '*'
+          destinationPortRange: '*'
+          sourceAddressPrefix: '*'
+          destinationAddressPrefix: '*'
+          access: 'Deny'
+          priority: 200
           direction: 'Inbound'
         }
       }

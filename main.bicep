@@ -3,6 +3,9 @@ var location = 'germanywestcentral'
 
 module rgs 'modules/rgs.bicep' = {
   name: 'deployRGS'
+  params: {
+    location: location
+  }
 }
 
 module vnets 'modules/vnet.bicep' = {

@@ -1,5 +1,7 @@
 param location string
 
+resource nsgApp 'Microsoft.Network/networkSecurityGroups@2025-05-01' existing = { name: 'nsg-snet-app' }
+
 resource hubVnet 'Microsoft.Network/virtualNetworks@2019-11-01' = {
   name: 'vnet-fonteyn-hub'
   location: location
@@ -40,6 +42,9 @@ resource spokeWorkloads 'Microsoft.Network/virtualNetworks@2019-11-01' = {
         name: 'snet-app'
         properties: {
           addressPrefix: '10.1.0.0/24'
+          networkSecurityGroup: {
+            id: nsgApp.id
+          }
         }
       }
       {
