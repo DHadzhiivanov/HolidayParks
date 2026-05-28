@@ -13,7 +13,7 @@ steps:
   - task: AzureCLI@2
     displayName: 'Deploy Bicep Landing Zone'
     inputs:
-      azureSubscription: 'sc-fonteyn-azure'
+      azureSubscription: 'a9a5dae2-3967-4e2a-a567-28831697d507'
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
