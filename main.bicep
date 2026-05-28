@@ -11,7 +11,7 @@ module rgs 'modules/rgs.bicep' = {
 module vnets 'modules/vnet.bicep' = {
   name: 'deployVNETs'
   scope: resourceGroup('rg-fonteyn-network')
-  dependsOn: [rgs]
+  dependsOn: [rgs, nsgs]
   params: {
     location: location
   }
@@ -20,7 +20,7 @@ module vnets 'modules/vnet.bicep' = {
 module nsgs 'modules/nsgs.bicep' = {
   name: 'deployNSGs'
   scope: resourceGroup('rg-fonteyn-network')
-  dependsOn: [vnets]
+  dependsOn: [rgs]
   params: {
     location: location
   }
