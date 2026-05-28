@@ -13,11 +13,11 @@ steps:
   - task: AzureCLI@2
     displayName: 'Deploy Bicep Landing Zone'
     inputs:
-      azureSubscription: 'Azure for Students(a9a5dae2-3967-4e2a-a567-28831697d507)'
+      azureSubscription: 'sc-fonteyn-azure'
       scriptType: 'bash'
       scriptLocation: 'inlineScript'
       inlineScript: |
         az deployment sub create \
-          --name 'sc-fonteyn-azure' \
+          --name 'fonteyn-landing-zone' \
           --location 'germanywestcentral' \
           --template-file landing-zone/main.bicep
