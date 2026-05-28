@@ -20,4 +20,4 @@ steps:
         az deployment sub create \
           --name 'fonteyn-landing-zone' \
           --location 'germanywestcentral' \
-          --template-file landing-zone/main.bicep
+          --template-file main.bicep
