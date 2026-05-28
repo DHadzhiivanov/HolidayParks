@@ -22,7 +22,7 @@ resource rgSecurity 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   location: location
 }
 // production
-resource rgWorkloadsProd 'Microsoft.Resources/resourceGroups@2021-04-01' = {
+resource rgWorkloadsProduction 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: 'rg-fonteyn-workloads-prod'
   location: location
 }
