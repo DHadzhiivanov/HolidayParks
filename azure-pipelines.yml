@@ -18,6 +18,6 @@ steps:
       scriptLocation: 'inlineScript'
       inlineScript: |
         az deployment sub create \
-          --name 'fonteyn-landing-zone' \
+          --name 'sc-fonteyn-azure' \
           --location 'germanywestcentral' \
           --template-file landing-zone/main.bicep
