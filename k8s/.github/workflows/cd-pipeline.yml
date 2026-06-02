@@ -1,0 +1,51 @@
+name: CD Pipeline - Deploy to AKS
+
+on:
+  workflow_run:
+    workflows: ["Booking App Pipeline"]
+    types:
+      - completed
+
+jobs:
+  deploy-to-aks:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Set AKS context
+        uses: azure/aks-set-context@v3
+        with:
+          resource-group: rg-fonteyn-workloads-dev
+          cluster-name: aks-fonteyn-dev
+
+      - name: Create namespace if not exists
+        run: |
+          kubectl get namespace fonteyn-dev || \
+          kubectl create namespace fonteyn-dev
+
+      - name: Deploy booking-app
+        run: |
+          kubectl apply -f k8s/booking-app/deployment.yaml
+          kubectl apply -f k8s/booking-app/service.yaml
+          kubectl apply -f k8s/booking-app/ingress.yaml
+          kubectl apply -f k8s/booking-app/hpa.yaml
+
+      - name: Deploy carbon-footprint-app
+        run: |
+          kubectl apply -f k8s/carbon-footprint-app/deployment.yaml
+          kubectl apply -f k8s/carbon-footprint-app/service.yaml
+          kubectl apply -f k8s/carbon-footprint-app/ingress.yaml
+          kubectl apply -f k8s/carbon-footprint-app/hpa.yaml
+
+      - name: Verify deployments
+        run: |
+          kubectl rollout status deployment/booking-app -n fonteyn-dev
+          kubectl rollout status deployment/carbon-footprint-app -n fonteyn-dev
