@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fonteyn Carbon Footprint App</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #ecfdf5, #e0f2fe);
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #166534, #0f766e);
+      color: white;
+      padding: 35px 8%;
+    }
+
+    header h1 {
+      font-size: 34px;
+    }
+
+    header p {
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+
+    .container {
+      padding: 45px 8%;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      color: #14532d;
+      margin-bottom: 18px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      line-height: 1.7;
+      color: #374151;
+    }
+
+    .card {
+      background: white;
+      padding: 28px;
+      border-radius: 22px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+    }
+
+    .card h3 {
+      color: #14532d;
+      margin-bottom: 18px;
+      font-size: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background: #15803d;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #166534;
+    }
+
+    .dashboard {
+      margin-top: 45px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+
+    .metric {
+      background: white;
+      padding: 24px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.09);
+      text-align: center;
+    }
+
+    .metric span {
+      font-size: 34px;
+    }
+
+    .metric h3 {
+      color: #14532d;
+      margin: 10px 0;
+    }
+
+    .metric p {
+      font-size: 22px;
+      font-weight: bold;
+      color: #0f766e;
+    }
+
+    .info-section {
+      margin-top: 45px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .info-box {
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .info-box h3 {
+      color: #14532d;
+      margin-bottom: 10px;
+    }
+
+    .info-box p {
+      line-height: 1.6;
+      color: #4b5563;
+    }
+
+    .result {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 14px;
+      background: #dcfce7;
+      color: #14532d;
+      display: none;
+      font-weight: bold;
+    }
+
+    footer {
+      margin-top: 45px;
+      background: #14532d;
+      color: white;
+      text-align: center;
+      padding: 28px;
+    }
+
+    @media (max-width: 900px) {
+
+      .hero,
+      .dashboard,
+      .info-section {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h2 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <h1>Fonteyn Carbon Footprint App</h1>
+    <p>Sustainability prototype for tracking visitor environmental impact</p>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h2>Track visitor carbon footprint data.</h2>
+        <p>
+          This prototype demonstrates a future sustainability application for Fonteyn Holiday Parks.
+          The app shows how visitor energy usage, water usage and travel behaviour could be collected
+          and converted into an estimated CO₂ footprint.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>Carbon Footprint Input</h3>
+
+        <form id="carbonForm">
+          <div class="form-group">
+            <label for="guest">Guest name</label>
+            <input id="guest" type="text" placeholder="Mohammed Bouziani" required>
+          </div>
+
+          <div class="form-group">
+            <label for="cottage">Cottage number</label>
+            <input id="cottage" type="text" placeholder="V-104" required>
+          </div>
+
+          <div class="form-group">
+            <label for="electricity">Electricity usage in kWh</label>
+            <input id="electricity" type="number" placeholder="145" required>
+          </div>
+
+          <div class="form-group">
+            <label for="water">Water usage in litres</label>
+            <input id="water" type="number" placeholder="320" required>
+          </div>
+
+          <div class="form-group">
+            <label for="travel">Travel method</label>
+            <select id="travel" required>
+              <option value="">Select travel method</option>
+              <option value="car">Car</option>
+              <option value="train">Train</option>
+              <option value="bike">Bike</option>
+              <option value="bus">Bus</option>
+            </select>
+          </div>
+
+          <button type="submit">Calculate Footprint</button>
+
+          <div class="result" id="resultBox">
+            Estimated CO₂ footprint calculated successfully.
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="dashboard">
+      <div class="metric">
+        <span>⚡</span>
+        <h3>Electricity</h3>
+        <p id="electricityResult">145 kWh</p>
+      </div>
+
+      <div class="metric">
+        <span>💧</span>
+        <h3>Water</h3>
+        <p id="waterResult">320 L</p>
+      </div>
+
+      <div class="metric">
+        <span>🌍</span>
+        <h3>CO₂ Estimate</h3>
+        <p id="co2Result">52 kg</p>
+      </div>
+
+      <div class="metric">
+        <span>🍃</span>
+        <h3>Eco Score</h3>
+        <p id="scoreResult">B+</p>
+      </div>
+    </section>
+
+    <section class="info-section">
+      <div class="info-box">
+        <h3>Sensor Ready</h3>
+        <p>This app can later receive sensor data from cottages, such as electricity and water usage.</p>
+      </div>
+
+      <div class="info-box">
+        <h3>Dashboard Concept</h3>
+        <p>Visitors and management can use dashboards to understand environmental impact.</p>
+      </div>
+
+      <div class="info-box">
+        <h3>CI/CD Ready</h3>
+        <p>The app is prepared as a containerized prototype that can be deployed through a pipeline.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Fonteyn Carbon Footprint App Prototype | Created by Mohammed Bouziani</p>
+    <p>Personal Research Project - CI/CD</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("carbonForm");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const electricity = Number(document.getElementById("electricity").value);
+      const water = Number(document.getElementById("water").value);
+      const travel = document.getElementById("travel").value;
+
+      let travelFactor = 0;
+      if (travel === "car") travelFactor = 25;
+      if (travel === "train") travelFactor = 8;
+      if (travel === "bus") travelFactor = 12;
+      if (travel === "bike") travelFactor = 0;
+
+      const co2 = Math.round((electricity * 0.25) + (water * 0.002) + travelFactor);
+
+      let score = "A";
+      if (co2 > 30) score = "B+";
+      if (co2 > 60) score = "C";
+      if (co2 > 100) score = "D";
+
+      document.getElementById("electricityResult").textContent = electricity + " kWh";
+      document.getElementById("waterResult").textContent = water + " L";
+      document.getElementById("co2Result").textContent = co2 + " kg";
+      document.getElementById("scoreResult").textContent = score;
+
+      document.getElementById("resultBox").style.display = "block";
+    });
+  </script>
+
+</body>
+
+</html>

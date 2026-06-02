@@ -1,0 +1,26 @@
+name: Booking App Pipeline
+
+on:
+  push:
+    branches:
+      - Mohammed-dev
+    paths:
+      - "booking-app/**"
+      - ".github/workflows/booking-app-pipeline.yml"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "booking-app/**"
+
+jobs:
+  build-booking-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t fonteyn-booking-app ./booking-app
