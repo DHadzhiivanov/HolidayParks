@@ -1,0 +1,26 @@
+name: Carbon Footprint App Pipeline
+
+on:
+  push:
+    branches:
+      - Mohammed-dev
+    paths:
+      - "carbon-footprint-app/**"
+      - ".github/workflows/carbon-footprint-pipeline.yml"
+
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "carbon-footprint-app/**"
+
+jobs:
+  build-carbon-footprint-app:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t carbon-footprint-app ./carbon-footprint-app
