@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fonteyn Booking App</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #eef7f2, #d8ecff);
+      color: #1f2937;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0f766e, #14532d);
+      color: white;
+      padding: 35px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo h1 {
+      font-size: 28px;
+    }
+
+    .logo p {
+      opacity: 0.9;
+      margin-top: 5px;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 25px;
+      font-weight: bold;
+    }
+
+    .hero {
+      padding: 70px 8%;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .hero-text h2 {
+      font-size: 52px;
+      line-height: 1.1;
+      color: #064e3b;
+      margin-bottom: 20px;
+    }
+
+    .hero-text p {
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      color: #374151;
+    }
+
+    .hero-buttons a {
+      display: inline-block;
+      padding: 14px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: bold;
+      margin-right: 12px;
+    }
+
+    .primary-btn {
+      background: #0f766e;
+      color: white;
+    }
+
+    .secondary-btn {
+      border: 2px solid #0f766e;
+      color: #0f766e;
+    }
+
+    .booking-card {
+      background: white;
+      padding: 30px;
+      border-radius: 24px;
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
+    }
+
+    .booking-card h3 {
+      color: #064e3b;
+      font-size: 26px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 7px;
+      font-weight: bold;
+      color: #374151;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #cbd5e1;
+      border-radius: 10px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background: #0f766e;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #115e59;
+    }
+
+    .parks {
+      padding: 40px 8%;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .section-title h2 {
+      font-size: 38px;
+      color: #064e3b;
+      margin-bottom: 10px;
+    }
+
+    .park-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .park-card {
+      background: white;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 14px 35px rgba(0, 0, 0, 0.10);
+    }
+
+    .park-image {
+      height: 170px;
+      background: linear-gradient(135deg, #34d399, #60a5fa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 55px;
+    }
+
+    .park-content {
+      padding: 22px;
+    }
+
+    .park-content h3 {
+      color: #064e3b;
+      margin-bottom: 10px;
+      font-size: 23px;
+    }
+
+    .park-content p {
+      color: #4b5563;
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+
+    .price {
+      color: #0f766e;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .features {
+      padding: 55px 8%;
+      background: white;
+      margin-top: 40px;
+    }
+
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 25px;
+      text-align: center;
+    }
+
+    .feature {
+      padding: 25px;
+      border-radius: 18px;
+      background: #f0fdfa;
+    }
+
+    .feature span {
+      font-size: 36px;
+    }
+
+    .feature h3 {
+      margin: 12px 0;
+      color: #064e3b;
+    }
+
+    footer {
+      background: #064e3b;
+      color: white;
+      padding: 30px 8%;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .status-box {
+      margin-top: 18px;
+      padding: 14px;
+      border-radius: 12px;
+      background: #ecfdf5;
+      color: #065f46;
+      display: none;
+      font-weight: bold;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .park-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .feature-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .hero-text h2 {
+        font-size: 38px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">
+      <h1>Fonteyn Holiday Parks</h1>
+      <p>Booking App Prototype</p>
+    </div>
+
+    <nav>
+      <a href="#parks">Parks</a>
+      <a href="#booking">Book Now</a>
+      <a href="#features">Services</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <h2>Book your perfect holiday stay with ease.</h2>
+      <p>
+        This booking application prototype is created for Fonteyn Holiday Parks.
+        It is used to demonstrate a modern web application that can be containerized
+        and deployed automatically using CI/CD.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="#booking" class="primary-btn">Start Booking</a>
+        <a href="#parks" class="secondary-btn">View Parks</a>
+      </div>
+    </div>
+
+    <div class="booking-card" id="booking">
+      <h3>Make a Reservation</h3>
+
+      <form id="bookingForm">
+        <div class="form-group">
+          <label for="park">Choose park</label>
+          <select id="park" required>
+            <option value="">Select a park</option>
+            <option>Veluwe Forest Park</option>
+            <option>Ardennes Nature Resort</option>
+            <option>Coastal Holiday Village</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="arrival">Arrival date</label>
+          <input type="date" id="arrival" required>
+        </div>
+
+        <div class="form-group">
+          <label for="departure">Departure date</label>
+          <input type="date" id="departure" required>
+        </div>
+
+        <div class="form-group">
+          <label for="guests">Number of guests</label>
+          <select id="guests" required>
+            <option value="">Select guests</option>
+            <option>1 guest</option>
+            <option>2 guests</option>
+            <option>3 guests</option>
+            <option>4 guests</option>
+            <option>5+ guests</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Full name</label>
+          <input type="text" id="name" placeholder="Mohammed Bouziani" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" placeholder="example@email.com" required>
+        </div>
+
+        <button type="submit">Submit Booking Request</button>
+
+        <div class="status-box" id="statusBox">
+          Booking request submitted successfully.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="parks" id="parks">
+    <div class="section-title">
+      <h2>Available Holiday Parks</h2>
+      <p>Choose from different Fonteyn locations.</p>
+    </div>
+
+    <div class="park-grid">
+      <div class="park-card">
+        <div class="park-image">🌲</div>
+        <div class="park-content">
+          <h3>Veluwe Forest Park</h3>
+          <p>A quiet holiday park surrounded by forest, ideal for families and nature lovers.</p>
+          <div class="price">From €89 per night</div>
+        </div>
+      </div>
+
+      <div class="park-card">
+        <div class="park-image">⛰️</div>
+        <div class="park-content">
+          <h3>Ardennes Nature Resort</h3>
+          <p>A peaceful resort in the Ardennes with hiking routes, cabins, and outdoor activities.</p>
+          <div class="price">From €99 per night</div>
+        </div>
+      </div>
+
+      <div class="park-card">
+        <div class="park-image">🌊</div>
+        <div class="park-content">
+          <h3>Coastal Holiday Village</h3>
+          <p>A relaxing coastal location close to the beach, perfect for summer holidays.</p>
+          <div class="price">From €109 per night</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="section-title">
+      <h2>Why this prototype?</h2>
+      <p>This app supports the CI/CD research project.</p>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature">
+        <span>🐳</span>
+        <h3>Containerized</h3>
+        <p>The app runs inside a Docker container.</p>
+      </div>
+
+      <div class="feature">
+        <span>⚙️</span>
+        <h3>CI/CD Ready</h3>
+        <p>The app can be connected to a GitHub Actions pipeline.</p>
+      </div>
+
+      <div class="feature">
+        <span>☁️</span>
+        <h3>Cloud Ready</h3>
+        <p>The app can later be deployed to Microsoft Azure.</p>
+      </div>
+
+      <div class="feature">
+        <span>📊</span>
+        <h3>Demo Friendly</h3>
+        <p>Useful for screenshots, testing, and PRP evidence.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Fonteyn Booking App Prototype | Created by Mohammed Bouziani</p>
+    <p>Personal Research Project - CI/CD</p>
+  </footer>
+
+  <script>
+    const form = document.getElementById("bookingForm");
+    const statusBox = document.getElementById("statusBox");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      statusBox.style.display = "block";
+
+      setTimeout(function () {
+        statusBox.style.display = "none";
+        form.reset();
+      }, 3000);
+    });
+  </script>
+
+</body>
+
+</html>
