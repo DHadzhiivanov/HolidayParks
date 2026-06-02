@@ -20,20 +20,6 @@ resource nsgApp 'Microsoft.Network/networkSecurityGroups@2019-11-01' = {
           direction: 'Inbound'
         }
       }
-      {
-        name: 'Allow-SQL-To-Data-SUbnet'
-        properties: {
-          description: 'Allow app subnet to reach SQL on 1433'
-          protocol: 'Tcp'
-          sourcePortRange: '*'
-          destinationPortRange: '1433'
-          sourceAddressPrefix: '10.1.0.0/24'
-          destinationAddressPrefix: '10.1.1.0/24'
-          access: 'Allow'
-          priority: 110
-          direction: 'Outbound'
-        }
-      }
     ]
   }
 }
