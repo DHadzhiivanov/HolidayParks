@@ -1,3 +1,4 @@
+targetScope = 'resourceGroup'
 param location string
 
 resource hubVnet 'Microsoft.Network/virtualNetworks@2019-11-01' existing = {
