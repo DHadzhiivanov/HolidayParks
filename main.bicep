@@ -30,7 +30,4 @@ module peerings 'modules/peerings.bicep' = {
   name: 'deployPeerings'
   scope: resourceGroup('rg-fonteyn-network')
   dependsOn: [vnets]
-    params: {
-    location: location
-  }
 }
