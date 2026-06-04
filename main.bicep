@@ -31,3 +31,23 @@ module peerings 'modules/peerings.bicep' = {
   scope: resourceGroup('rg-fonteyn-network')
   dependsOn: [vnets]
 }
+module acr 'modules/acr.bicep' = {
+  name: 'deployACR'
+  scope: resourceGroup('rg-fonteyn-workloads-dev')
+  dependsOn: [rgs]
+  params: {
+    location: location
+    acrName: 'acrfonteyn'
+  }
+}
+
+module aks 'modules/aks.bicep' = {
+  name: 'deployAKS'
+  scope: resourceGroup('rg-fonteyn-workloads-dev')
+  dependsOn: [rgs, acr]
+  params: {
+    location: location
+    aksName: 'aks-fonteyn-dev'
+    acrName: 'acrfonteyn'
+  }
+}
