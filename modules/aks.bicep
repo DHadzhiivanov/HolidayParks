@@ -3,6 +3,7 @@ param aksName string
 param nodeCount int = 2
 param nodeVmSize string = 'Standard_DS2_v2'
 param acrName string
+param subnetId string
 
 resource aks 'Microsoft.ContainerService/managedClusters@2023-01-01' = {
   name: aksName
@@ -18,8 +19,14 @@ resource aks 'Microsoft.ContainerService/managedClusters@2023-01-01' = {
         count: nodeCount
         vmSize: nodeVmSize
         mode: 'System'
+        vnetSubnetID: subnetId
       }
     ]
+    networkProfile: {
+      networkPlugin: 'azure'
+      serviceCidr: '10.100.0.0/16'
+      dnsServiceIP: '10.100.0.10'
+    }
   }
 }
 
