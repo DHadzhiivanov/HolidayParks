@@ -1,6 +1,6 @@
 # IaC Bicep Landing Zone
 
-This repository contains a subscription-scope Azure Bicep deployment for Fonteyn Holidayparks landing-zone environment. The current template creates the core resource groups, virtual networks, network security groups, and a GitHub Actions workflow for deployment.
+This repository contains a subscription-scope Azure Bicep deployment for Fonteyn Holidayparks landing-zone environment. The current template creates the core resource groups, virtual networks, network security groups, and virtual network peerings.
 
 ## Overview
 
@@ -14,8 +14,8 @@ The deployment is organized around a hub-and-spoke style network layout with sep
 - [modules/rgs.bicep](modules/rgs.bicep): creates the resource groups used by the environment.
 - [modules/nsgs.bicep](modules/nsgs.bicep): defines network security groups and baseline security rules.
 - [modules/vnet.bicep](modules/vnet.bicep): creates the hub and spoke virtual networks and subnets.
-- [modules/peerings.bicep](modules/peerings.bicep): placeholder for virtual network peering resources.
-- [modules/iot.bicep](modules/iot.bicep): placeholder for IoT-specific infrastructure.
+- [modules/peerings.bicep](modules/peerings.bicep): configures virtual network peering between hub and spoke networks.
+- [modules/services.bicep](modules/services.bicep): placeholder for future service deployments.
 - [.github/workflows/azure-deploy-holidayparks.yml](.github/workflows/azure-deploy-holidayparks.yml): GitHub Actions workflow that deploys the Bicep template to Azure.
 
 ## What the Template Creates
@@ -27,6 +27,7 @@ The current Bicep files define:
 - Spoke virtual networks for booking/workloads, IoT, management, and development.
 - NSGs for application, data, and IoT subnets.
 - An application subnet that is associated with the application NSG.
+- Virtual network peering between the hub network and booking spoke network.
 
 ## Prerequisites
 
@@ -65,5 +66,6 @@ It performs three steps:
 
 ## Notes
 
-- [modules/peerings.bicep](modules/peerings.bicep) and [modules/iot.bicep](modules/iot.bicep) are currently empty placeholders.
+- [modules/services.bicep](modules/services.bicep) is a placeholder for future service deployments.
 - The `main.bicep` module ordering depends on the resource group module running before the network modules.
+- Virtual network peering is configured between the hub network and the booking spoke network with virtual network access enabled and forwarded traffic disabled.
