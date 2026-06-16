@@ -11,6 +11,13 @@ spec:
     - host: booking.fonteyn.nl
       http:
         paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: booking-api
+                port:
+                  number: 3000
           - path: /
             pathType: Prefix
             backend:
