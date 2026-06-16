@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booking-api
+  namespace: fonteyn-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booking-api
+  template:
+    metadata:
+      labels:
+        app: booking-api
+    spec:
+      containers:
+        - name: booking-api
+          image: acrfonteyn.azurecr.io/booking-api:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: booking-db-secret
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: booking-db-secret
+                  key: DB_PASSWORD
+            - name: DB_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: booking-db-secret
+                  key: DB_SERVER
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: booking-db-secret
+                  key: DB_NAME
